@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css">
-        <title>Flash Card App</title>
-    </head>
-    <body>
-        <div id="app">
-            <h1>{{ deckName }}</h1>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Flash Card App</title>
+</head>
+<body>
+    <div id="app">
+        <h1 v-text="deckName"></h1>
 
-            <div class="card">
-                <h2>Item</h2>
-                <div>Description</div>
-            </div>
+        <div class="card">
+            <h2 v-text="card[0].front"></h2>
+            <div v-html="card[0].back"></div>
+            <!-- v-html не экранирует и обрабатывает как есть html-элементы'-->
         </div>
+    </div>
 
-        <script src="data.js"></script>
-        <script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
-        <script>
-            const FlashCardApp = {
-                data() {
-                    return {
-                        deckName: 'Vue.js Fundamentals'
-                    };
-                }
+<script src="data.js"></script>
+<script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
+<script>
+    const FlashCardApp = {
+        data() {
+            return {
+                deckName: 'Vue.js Fundamentals',
+                card: cards
+                // можно указывать просто
+                // cards
             };
+        }
+    };
 
-            Vue.createApp(FlashCardApp).mount('#app');
-        </script>
-    </body>
+    Vue.createApp(FlashCardApp).mount('#app');
+</script>
+
+</body>
 </html>
