@@ -10,9 +10,9 @@
         <h1 v-text="deckName"></h1>
 
         <div class="card">
-            <h2 v-text="card[0].front"></h2>
-            <div v-html="card[0].back"></div>
-            <!-- v-html не экранирует и обрабатывает как есть html-элементы'-->
+            <h2 v-text="flipped ? '' : card[0].front"></h2>
+            <div v-html="flipped ? card[0].back : ''"></div>
+            <!-- v-html не экранирует и обрабатывает как есть html-элементы -->
         </div>
     </div>
 
@@ -23,14 +23,17 @@
         data() {
             return {
                 deckName: 'Vue.js Fundamentals',
-                card: cards
-                // можно указывать просто
-                // cards
+                card: cards,
+                // можно указывать
+                // cards: cards,
+                // или просто
+                // cards,
+                flipped: false
             };
         }
     };
 
-    Vue.createApp(FlashCardApp).mount('#app');
+    const app = Vue.createApp(FlashCardApp).mount('#app');
 </script>
 
 </body>
