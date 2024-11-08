@@ -14,6 +14,12 @@
             <div v-html="flipped ? card[0].back : ''"></div>
             <!-- v-html не экранирует и обрабатывает как есть html-элементы -->
         </div>
+
+        <a :href="readMoreUrl">read more</a>
+        <!-- часто используется запись без v-bind : -->
+        <!-- <a :href="readMoreUrl">read more</a> -->
+        <!-- вместо  -->
+        <!-- <a v-bind:href="readMoreUrl">read more</a> -->
     </div>
 
 <script src="data.js"></script>
@@ -28,7 +34,8 @@
                 // cards: cards,
                 // или просто
                 // cards,
-                flipped: false
+                flipped: false,
+                readMoreUrl: 'https://v3.vuejs.org/guide'
             };
         }
     };
