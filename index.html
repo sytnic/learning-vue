@@ -10,13 +10,18 @@
         <h1 v-text="deckName"></h1>
 
         <div class="user-input">
-            Type something: <input type="text" :value="userInput">
+            Type something: <input type="text" v-model="userInput">
+            <!-- v-model даёт двустороннее направление в изменении userInput - 
+                 как от программы со значением по умолчанию, так и от пользователя.
+                 Это также дает возможность ниже онлайн динамически использовать 
+                 userInput == в логическом выражении и в этом поле ввода.
+            -->
             <!-- возможна запись  :value  вместо  v-bind:value -->
         </div>
 
         <div class="card">
-            <h2 v-text="flipped ? '' : card[0].front"></h2>
-            <div v-html="flipped ? card[0].back : ''"></div>
+            <h2 v-text="userInput == 'flip' ? '' : card[0].front"></h2>
+            <div v-html="userInput == 'flip' ? card[0].back : ''"></div>
             <!-- v-html не экранирует и обрабатывает как есть html-элементы -->
         </div>
 
