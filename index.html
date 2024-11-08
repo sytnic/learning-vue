@@ -9,6 +9,11 @@
     <div id="app">
         <h1 v-text="deckName"></h1>
 
+        <div class="user-input">
+            Type something: <input type="text" :value="userInput">
+            <!-- возможна запись  :value  вместо  v-bind:value -->
+        </div>
+
         <div class="card">
             <h2 v-text="flipped ? '' : card[0].front"></h2>
             <div v-html="flipped ? card[0].back : ''"></div>
@@ -35,7 +40,8 @@
                 // или просто
                 // cards,
                 flipped: false,
-                readMoreUrl: 'https://v3.vuejs.org/guide'
+                readMoreUrl: 'https://v3.vuejs.org/guide',
+                userInput: 'default'
             };
         }
     };
