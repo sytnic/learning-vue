@@ -11,25 +11,29 @@
 
         <div class="user-input">
             Type something: <input type="text" v-model="userInput">
-            <!-- v-model даёт двустороннее направление в изменении userInput - 
-                 как от программы со значением по умолчанию, так и от пользователя.
-                 Это также дает возможность ниже онлайн динамически использовать 
-                 userInput == в логическом выражении и в этом поле ввода.
+            <!-- v-model позволяет изменять пользователю 
+                 заданное по умолчанию значение параметра userInput  
+                 при вводе данных в это поле.
+                 Так меняется DOM при вводе данных.
+                 Это даёт возможность ниже динамически использовать 
+                 userInput == в логическом выражении, 
+                 ориентируясь на вводимое в это поле значение ('flip' ?).
             -->
-            <!-- возможна запись  :value  вместо  v-bind:value -->
+            <!-- когда не используется v-model,
+                 возможна запись  :value  вместо  v-bind:value.
+                 Так не меняется DOM при вводе данных. -->
         </div>
 
         <div class="card">
             <h2 v-text="userInput == 'flip' ? '' : card[0].front"></h2>
             <div v-html="userInput == 'flip' ? card[0].back : ''"></div>
-            <!-- v-html не экранирует и обрабатывает как есть html-элементы -->
+            <!-- v-text экранирует html теги и отображает их как текст -->
+            <!-- v-html не экранирует html теги и позволяет браузеру обработать их -->
         </div>
 
         <a :href="readMoreUrl">read more</a>
-        <!-- часто используется запись без v-bind : -->
-        <!-- <a :href="readMoreUrl">read more</a> -->
-        <!-- вместо  -->
-        <!-- <a v-bind:href="readMoreUrl">read more</a> -->
+        <!-- эта запись является сокращением от записи 
+             <a v-bind:href="readMoreUrl">   -->
     </div>
 
 <script src="data.js"></script>
@@ -38,11 +42,13 @@
     const FlashCardApp = {
         data() {
             return {
+                // следующие параметры (свойства объекта data{}) и их значения будут использоваться в html
+                // как значения атрибутов v-model, v-text и т.п.
                 deckName: 'Vue.js Fundamentals',
-                card: cards,
-                // можно указывать
+                card: cards,   // cards - константа, загруженная из data.js
+                // обычно делают запись 
                 // cards: cards,
-                // или просто
+                // и у неё есть короткий синтаксис:
                 // cards,
                 flipped: false,
                 readMoreUrl: 'https://v3.vuejs.org/guide',
@@ -51,6 +57,8 @@
         }
     };
 
+    // константа app дает возможность обращаться в консоли к свойствам объекта как
+    // app.flipped; app.flipped=true;  и т.п.
     const app = Vue.createApp(FlashCardApp).mount('#app');
 </script>
 
