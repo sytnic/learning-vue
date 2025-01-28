@@ -13,10 +13,14 @@
             <!-- запись v-on:click имеет сокращенный синтаксис:
                  @click
             -->
-            <h2 v-text="flipped ? '' : card[0].front"></h2>
-            <div v-html="flipped ? card[0].back : ''"></div>
+            <h2 v-text="flipped ? '' : card[index].front"></h2>
+            <div v-html="flipped ? card[index].back : ''"></div>
             <!-- v-text экранирует html теги и отображает их как текст -->
             <!-- v-html не экранирует html теги и позволяет браузеру обработать их -->
+        </div>
+
+        <div class="navigation">
+            <button @click="move" type="button">&#8594</button>
         </div>
 
         <a :href="readMoreUrl">read more</a>
@@ -38,9 +42,19 @@
                 // cards: cards,
                 // и у неё есть короткий синтаксис:
                 // cards,
+                index: 0,
                 flipped: false,
                 readMoreUrl: 'https://v3.vuejs.org/guide'
             };
+        },
+        methods: {
+            move() {
+                this.index++;
+                
+                // при клике вперёд будет оставлять карточки 
+                // лицевой стороной (неперевернутыми)
+                this.flipped = false
+            }
         }
     };
 
