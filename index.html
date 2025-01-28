@@ -20,7 +20,8 @@
         </div>
 
         <div class="navigation">
-            <button @click="move" type="button">&#8594</button>
+            <button @click="move(-1)" type="button">&#8592</button>
+            <button @click="move(1)" type="button">&#8594</button>
         </div>
 
         <a :href="readMoreUrl">read more</a>
@@ -48,12 +49,16 @@
             };
         },
         methods: {
-            move() {
-                this.index++;
-                
-                // при клике вперёд будет оставлять карточки 
-                // лицевой стороной (неперевернутыми)
-                this.flipped = false
+            move(change) {
+                // проверка if на истину,
+                // чтобы не выходить за пределы массива
+                if (this.card[this.index + change]) {
+                    this.index += change;
+
+                    // при клике вперёд будет оставлять карточки 
+                    // лицевой стороной (неперевернутыми)
+                    this.flipped = false
+                }
             }
         }
     };
