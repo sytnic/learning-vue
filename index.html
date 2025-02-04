@@ -1,73 +1,49 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Flash Card App</title>
-</head>
-<body>
-    <div id="app">
-        <h1 v-text="deckName"></h1>
-        
-        <div v-on:click="flipped = !flipped" class="card">
-            <!-- запись v-on:click имеет сокращенный синтаксис:
-                 @click
-            -->
-            <h2 v-text="flipped ? '' : card[index].front"></h2>
-            <div v-html="flipped ? card[index].back : ''"></div>
-            <!-- v-text экранирует html теги и отображает их как текст -->
-            <!-- v-html не экранирует html теги и позволяет браузеру обработать их -->
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <title>Flash Card App</title>
+    </head>
+    <body>
+
+        <div id="app">
+            <h1>Deck Settings</h1>
+
+            <form method="post" action="">
+                <div>
+                    <label for="name">Name: </label>
+
+                    <input v-model="deckName" type="text" id="name" name="name"> ({{ deckName.length }} characters)
+                    <!--  :value="deckName" участвует в статическом  отображении данных -->
+                    <!-- v-model="deckName" участвует в динамическом отображении данных -->
+                    <!-- при необходимости возможно использовать функции:
+                        input :value="Math.random()"
+                    -->
+                </div>
+
+                <div>
+                    <label for="description">Description: </label>
+                    <textarea v-model="deckDescription" id="description" name="description"></textarea>
+                    ({{ 200 - deckDescription.length }} left)
+                </div>
+
+                <button type="submit">Create</button>
+            </form>
         </div>
 
-        <div class="navigation">
-            <button @click="move(-1)" type="button">&#8592</button>
-            <button @click="move(1)" type="button">&#8594</button>
-        </div>
-
-        <a :href="readMoreUrl">read more</a>
-        <!-- эта запись является сокращением от записи 
-             <a v-bind:href="readMoreUrl">   -->
-    </div>
-
-<script src="data.js"></script>
-<script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
-<script>
-    const FlashCardApp = {
-        data() {
-            return {
-                // следующие параметры (свойства объекта data{}) и их значения будут использоваться в html
-                // как значения атрибутов v-model, v-text и т.п.
-                deckName: 'Vue.js Fundamentals',
-                card: cards,   // cards - константа, загруженная из data.js
-                // обычно делают запись 
-                // cards: cards,
-                // и у неё есть короткий синтаксис:
-                // cards,
-                index: 0,
-                flipped: false,
-                readMoreUrl: 'https://v3.vuejs.org/guide'
-            };
-        },
-        methods: {
-            move(change) {
-                // проверка if на истину,
-                // чтобы не выходить за пределы массива,
-                // перемещаясь по кнопкам
-                if (this.card[this.index + change]) {
-                    this.index += change;
-
-                    // при клике вперёд будет оставлять карточки 
-                    // лицевой стороной (неперевернутыми)
-                    this.flipped = false
+        <script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
+        <script>
+            const FlashCardApp = {
+                data() {
+                    return {
+                        deckName: 'Vue.js Fundamentals',
+                        deckDescription: ''
+                    };
                 }
-            }
-        }
-    };
+            };
 
-    // константа app дает возможность обращаться в консоли к свойствам объекта как
-    // app.flipped; app.flipped=true;  и т.п.
-    const app = Vue.createApp(FlashCardApp).mount('#app');
-</script>
-
-</body>
+            const app = Vue.createApp(FlashCardApp).mount('#app');
+        </script>
+    </body>
 </html>
