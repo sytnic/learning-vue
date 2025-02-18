@@ -30,7 +30,10 @@
 
         <div class="options">
             <div>
-                <input v-model="reverse" type="checkbox" id="reverse" value="reverse">
+                <input v-model="reverse" 
+                  true-value="on" 
+                  false-value="off"
+                  type="checkbox" id="reverse" value="reverse">
                 <label for="reverse">Include reverse cards</label>
             </div>
 
@@ -60,7 +63,7 @@
             return {
                 deckName: 'Vue.js Fundamentals',
                 deckDescription: '',
-                reverse: false
+                reverse: 'off'
             };
         }
     };
