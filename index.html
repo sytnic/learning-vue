@@ -28,12 +28,9 @@
             ({{ 200 - deckDescription.length }} left)
         </div>
 
-        <div class="options">
+        <div class="options">            
             <div>
-                <input v-model="options" 
-                  true-value="on" 
-                  false-value="off"
-                  type="checkbox" id="reverse" value="reverse">
+                <input v-model="options" true-value="on" false-value="off" type="checkbox" id="reverse" value="reverse">
                 <label for="reverse">Include reverse cards</label>
             </div>
 
@@ -45,15 +42,39 @@
             <div>
                 <input v-model="options" type="checkbox" id="reminders" value="reminders">
                 <label for="reminders">Enable reminders</label>
-            </div>
+            </div>            
+
+            <fieldset class="leech-action">
+                <legend>Leech action</legend>
+                <div>
+                    <input type="radio" id="tag" name="leech" value="tag">
+                    <label for="tag">tag</label>
+                </div>
+                <div>
+                    <input type="radio" id="suspend" name="leech" value="suspend">
+                    <label for="suspend">suspend</label>
+                </div>
+            </fieldset>
         </div>
 
-        <div>
-            selected options: <b>{{ options }}</b>
+        <div class="category">
+            <label for="category">Category:</label>
+            <select name="category" id="category">
+                <option value="">Select</option>
+                <option value="1">Foreign Language</option>
+                <option value="2">History</option>
+                <option value="3">Biology</option>
+                <option value="4">Geography</option>
+                <option value="5">Law</option>
+                <option value="6">Programming</option>
+            </select>
         </div>
-
+<!--
+        <div> selected options: <b>{{ options }}</b> </div>
+-->
         <button type="submit">Create</button>
     </form>
+    
 </div>
 
 <script src="https://unpkg.com/vue@3.0.7/dist/vue.global.js"></script>
@@ -62,7 +83,7 @@
         data() {
             return {
                 deckName: 'Vue.js Fundamentals',
-                deckDescription: '',
+                deckDescription: 'Core concepts and directives for working with Vue.js',
                 options: []
             };
         }
