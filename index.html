@@ -14,18 +14,25 @@
         <div>
             <label for="name">Name: </label>
 
-            <input v-model="deckName" type="text" id="name" name="name"> ({{ deckName.length }} characters)
+            <input v-model.trim="deckName" type="text" id="name" name="name"> ({{ deckName.length }} characters)
             <!--  :value="deckName" участвует в статическом  отображении данных -->
             <!-- v-model="deckName" участвует в динамическом отображении данных -->
             <!-- при необходимости возможно использовать функции:
                 input :value="Math.random()"
             -->
+            <!--  v-model.trim позволяет не учитывать пробелы в начале и конце значения, введённого в инпут. 
+                Таким образом, подсчёт пробелов будет исключён в свойстве deckName.length.
+            -->
         </div>
 
         <div>
             <label for="description">Description: </label>
-            <textarea v-model="deckDescription" id="description" name="description"></textarea>
+            <textarea v-model.lazy="deckDescription" id="description" name="description"></textarea>
             ({{ 200 - deckDescription.length }} left)
+            <!--  v-model.lazy позволяет не подсчитывать увеличивающееся значение ввода символов в textarea,
+                пока мы не уйдём с поля. 
+                Таким образом, подсчёт значения deckDescription.length будет произведён в момент ухода с поля textarea.
+            -->
         </div>
 
         <div class="options">            
@@ -59,7 +66,11 @@
 
         <div class="category">
             <label for="category">Category:</label>
-            <select v-model="categoryId" name="category" id="category">
+            <select v-model.number="categoryId" name="category" id="category">
+                <!--  v-model.number позволяет сразу преобразовать в categoryId получающие строки
+                     типа "3", "1", в числа, типа 3, 1.
+                    Это значение categoryId можно увидеть в vue-dev-tools.                 
+                -->
                 <option value="">Select</option>
                 <option value="1">Foreign Language</option>
                 <option value="2">History</option>
@@ -72,7 +83,12 @@
 <!--
         <div> selected options: <b>{{ options }}</b> </div>
 -->
-        <button type="submit">Create</button>
+        <button @click.prevent="submit" type="submit">Create</button>
+        <!--
+            @click позволяет выполнить дополнительные действия в методе submit() 
+            перед отправкой.
+            @click.prevent предотвращает отправку.
+        -->
     </form>
     
 </div>
@@ -88,6 +104,11 @@
                 leech: 'tag',
                 categoryId: ''
             };
+        },
+        methods: {
+            submit() {
+                alert('submitting...');
+            }
         }
     };
 
