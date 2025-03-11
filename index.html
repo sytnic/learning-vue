@@ -28,8 +28,12 @@
         <div>
             <label for="description">Description: </label>
             <textarea v-model="deckDescription" id="description" name="description"></textarea>
-            ({{ charsLeft }} left)
+            ({{ charsLeft() }} left)
+            <!-- Если это метод, используются скобки charsLeft() -->
+            <!-- Если это вычисляемое свойство, не используются скобки charsLeft -->
+
             <!--  ({{ 200 - deckDescription.length }} left) -->
+            
             <!--  v-model.lazy позволяет не подсчитывать увеличивающееся значение ввода символов в textarea,
                 пока мы не уйдём с поля. 
                 С v-model.lazy подсчёт значения deckDescription.length будет произведён в момент ухода с поля textarea.
@@ -107,13 +111,16 @@
             };
         },
         computed: {
-            charsLeft() {
-                return 200 - this.deckDescription.length;
-            }
+            // charsLeft() {
+            //     return 200 - this.deckDescription.length;
+            // }
         },
         methods: {
             submit() {
                 alert('submitting...');
+            },
+            charsLeft() {
+                return 200 - this.deckDescription.length;
             }
         }
     };
