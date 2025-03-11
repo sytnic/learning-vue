@@ -27,11 +27,12 @@
 
         <div>
             <label for="description">Description: </label>
-            <textarea v-model.lazy="deckDescription" id="description" name="description"></textarea>
-            ({{ 200 - deckDescription.length }} left)
+            <textarea v-model="deckDescription" id="description" name="description"></textarea>
+            ({{ charsLeft }} left)
+            <!--  ({{ 200 - deckDescription.length }} left) -->
             <!--  v-model.lazy позволяет не подсчитывать увеличивающееся значение ввода символов в textarea,
                 пока мы не уйдём с поля. 
-                Таким образом, подсчёт значения deckDescription.length будет произведён в момент ухода с поля textarea.
+                С v-model.lazy подсчёт значения deckDescription.length будет произведён в момент ухода с поля textarea.
             -->
         </div>
 
@@ -104,6 +105,11 @@
                 leech: 'tag',
                 categoryId: ''
             };
+        },
+        computed: {
+            charsLeft() {
+                return 200 - this.deckDescription.length;
+            }
         },
         methods: {
             submit() {
