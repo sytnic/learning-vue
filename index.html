@@ -11,7 +11,10 @@
 
             <div @click="flipped = !flipped" class="card">
                 <h2 v-if="!flipped" v-text="front"></h2>
-                <div v-else v-html="back"></div>
+                <div v-else-if="back" v-html="back"></div>
+                <!-- Теперь щёлкание по карточкам создаёт в DOM либо h2, либо div. 
+                     v-else-if можно применять несколько раз.
+                -->
             </div>
 
             <div class="navigation">
