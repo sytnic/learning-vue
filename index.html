@@ -10,10 +10,17 @@
             <h1 v-text="deckName"></h1>
 
             <div @click="flipped = !flipped" class="card">
-                <h2 v-if="!flipped" v-text="front"></h2>
-                <div v-else-if="back" v-html="back"></div>
+                <h2 v-show="!flipped" v-text="front"></h2>
+                <div v-show="flipped" v-html="back"></div>
                 <!-- Теперь щёлкание по карточкам создаёт в DOM либо h2, либо div. 
                      v-else-if можно применять несколько раз.
+
+                     v-show не используется совместно с v-else-if,
+                     его используют также с v-show.
+                     В этом случае DOM h2 и div создаются при загрузке страницы, 
+                     а не при нажатии на карточку. 
+                     Это не вызывает задержек, если происходят сложные циклы в процессе.
+                     Однако, задержка произойдёт при загрузке страницы.
                 -->
             </div>
 
@@ -52,6 +59,9 @@
                         return this.cards[this.index].front;
                     },
                     back() {
+                        // имитация дорогостоящей операции
+                        for (let i = 0; i < 3e9; i++){  }
+
                         return this.cards[this.index].back;
                     }
                 }
