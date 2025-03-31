@@ -6,38 +6,14 @@
         <title>Flash Card App</title>
     </head>
     <body>
-        <div id="app">
-            <h1 v-text="deckName"></h1>
 
-            <div @click="flipped = !flipped" class="card">
-                <h2 v-cloak v-show="!flipped">{{ front }}</h2>
-                <!-- 
-                    при дорогостоящей операции
-                    значение между тегами будет долго загружаться
-                    и предварительно будет долго показываться значение в фигурных скобках.
-                    v-cloak, свойство которого {display: none} описано в css,
-                    помогает скрыть предварительное отображение значения между тегами. 
-                -->
-                <div v-show="flipped" v-html="back"></div>
-                <!-- Теперь щёлкание по карточкам создаёт в DOM либо h2, либо div. 
-                     v-else-if можно применять несколько раз.
+        <div id="app" v-cloak>
+            <h1>Card Manager</h1>
 
-                     v-show не используется совместно с v-else-if,
-                     его используют также с v-show.
-                     В этом случае DOM h2 и div создаются при загрузке страницы, 
-                     а не при нажатии на карточку. 
-                     Это не вызывает задержек, если происходят сложные циклы в процессе.
-                     Однако, задержка произойдёт при загрузке страницы.
-                -->
+            <div v-for="card in cards" class="card-pair">
+                <div class="card" v-text="card.front"></div>
+                <div class="card" v-html="card.back"></div>
             </div>
-
-            <div class="navigation">
-                <button @click="move(-1)" type="button">&#8592;</button>
-
-                <button @click="move(1)" type="button">&#8594;</button>
-            </div>
-
-            <a :href="readMoreUrl">Read more</a>
         </div>
 
         <script src="data.js"></script>
@@ -46,32 +22,9 @@
             const FlashCardApp = {
                 data() {
                     return {
-                        deckName: 'Vue.js Fundamentals',
                         cards,
-                        index: 0,
-                        flipped: false,
-                        readMoreUrl: 'https://v3.vuejs.org/guide'                        
                     };
                 },
-                methods: {
-                    move(change) {
-                        if (this.cards[this.index + change]) {
-                            this.flipped = false;
-                            this.index += change;
-                        }
-                    }
-                },
-                computed: {
-                    front() {
-                        return this.cards[this.index].front;
-                    },
-                    back() {
-                        // имитация дорогостоящей операции
-                        for (let i = 0; i < 3e9; i++){  }
-
-                        return this.cards[this.index].back;
-                    }
-                }
             };
 
             const app = Vue.createApp(FlashCardApp).mount('#app');
