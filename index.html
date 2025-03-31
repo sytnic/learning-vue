@@ -10,8 +10,11 @@
         <div id="app" v-cloak>
             <h1>Card Manager</h1>
 
-            <div v-for="card in cards" class="card-pair">
-                <div class="card" v-text="card.front"></div>
+            <div v-for="(card, index) in cards" class="card-pair">
+                <div v-if="editIndex == index" class="card">
+                    <textarea v-model="card.front"></textarea>
+                </div>
+                <div v-else @click="editIndex = index" class="card" v-text="card.front"></div>
                 <div class="card" v-html="card.back"></div>
             </div>
         </div>
@@ -23,6 +26,7 @@
                 data() {
                     return {
                         cards,
+                        editIndex: -1
                     };
                 },
             };
