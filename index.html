@@ -9,18 +9,7 @@
         <div id="app">
             <h1 v-text="deckName"></h1>
 
-            <!-- anotherClass указан для примера, не используется на странице -->
-            <div @click="flipped = !flipped" :class="{again: isRepeat, anotherClass: somethingIsTruthy}" class="card">
-                <h2 v-if="!flipped" v-text="front"></h2>
-                
-                <div v-else>
-                    <div v-html="back"></div>
-                    <div class="score">
-                        <button @click.stop="gotIt">GOT IT</button>
-                        <button @click.stop="again">AGAIN</button>
-                    </div>
-                </div>
-            </div>
+            <flash-card :flipped="flipped" :is-repeat="isRepeat" :front="front" :back="back"></flash-card>
 
             <div class="navigation">
                 <button @click="move(-1)" type="button">&#8592;</button>
@@ -88,6 +77,9 @@
 
             const app = Vue.createApp(FlashCardApp);
 
+            // Если компонент не отображается в панели отладки в инструменте Vue в Firefox,
+            // то нужно перезагрузить панель отладки F12
+
             app.component('read-more', {
                 // заменяем 
                 // template: '<a href="https://v3.vuejs.org/guide">Read more</a>',
@@ -96,6 +88,21 @@
 
                 name: 'ReadMore',
                 props: ['url']
+            });
+
+            app.component('flash-card', {
+                template: '<div @click="flipped = !flipped" :class="{again: isRepeat}" class="card"> \
+                                <h2 v-if="!flipped" v-text="front"></h2> \
+                                <div v-else> \
+                                    <div v-html="back"></div> \
+                                    <div class="score"> \
+                                        <button @click.stop="gotIt">GOT IT</button> \
+                                        <button @click.stop="again">AGAIN</button> \
+                                    </div> \
+                                </div> \
+                            </div>',
+                name: 'FlashCard',
+                props: ['flipped', 'isRepeat', 'front', 'back']
             });
 
             app.mount('#app');

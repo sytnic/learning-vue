@@ -27,5 +27,8 @@ https://github.com/vuejs/devtools-v6/releases/tag/v6.6.3
 .self  
 .once  
 
-## 
+## 020-Using component props
 
+Если компонент не отображается в панели отладки в инструменте Vue в Firefox, то нужно перезагрузить панель отладки F12.
+
+## 
