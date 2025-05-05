@@ -9,7 +9,16 @@
         <div id="app">
             <h1 v-text="deckName"></h1>
 
-            <flash-card @flip="flipped = !flipped" :flipped="flipped" :is-repeat="isRepeat" :front="front" :back="back"></flash-card>
+            <flash-card 
+                @flip="flipped = !flipped"
+                @yes="gotIt"
+                @no="again"
+                :flipped="flipped" 
+                :is-repeat="isRepeat" 
+                :front="front" 
+                :back="back"
+            >
+            </flash-card>
 
             <div class="navigation">
                 <button @click="move(-1)" type="button">&#8592;</button>
@@ -98,8 +107,8 @@
                                 <div v-else> \
                                     <div v-html="back"></div> \
                                     <div class="score"> \
-                                        <button @click.stop="gotIt">GOT IT</button> \
-                                        <button @click.stop="again">AGAIN</button> \
+                                        <button @click.stop="$emit(\'yes\')">GOT IT</button> \
+                                        <button @click.stop="$emit(\'no\')">AGAIN</button> \
                                     </div> \
                                 </div> \
                             </div>',
