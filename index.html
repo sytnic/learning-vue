@@ -32,8 +32,8 @@
             <!-- <read-more url="https://..."></read-more> -->
             <!-- динамически так: -->
             <read-more :url="readMoreUrl">
-                Please read this
-                <template v-slot:copyright><p>&copy; 2021 Flashcard App</p></template>
+                {{ readMoreUrl }}
+                <template v-slot:copyright="props"><p>&copy; {{props.year}} Flashcard App</p></template>
             </read-more>
         </div>
 
@@ -98,9 +98,14 @@
                 // на
                 //template: '<a :href="url">Read more</a>',
 
-                template: '<a :href="url"><slot>Read more</slot></a><slot name="copyright"></slot>',
+                template: '<a :href="url"><slot>Read more</slot></a><slot :year="year" name="copyright"></slot>',
                 name: 'ReadMore',
-                props: ['url']
+                props: ['url'],
+                data() {
+                    return {
+                        year: 2021
+                    };
+                }
             });
 
             app.component('flash-card', {
