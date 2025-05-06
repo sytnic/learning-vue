@@ -31,7 +31,10 @@
             <!-- статически можно передать так: -->
             <!-- <read-more url="https://..."></read-more> -->
             <!-- динамически так: -->
-            <read-more :url="readMoreUrl"></read-more>
+            <read-more :url="readMoreUrl">
+                Please read this
+                <template v-slot:copyright><p>&copy; 2021 Flashcard App</p></template>
+            </read-more>
         </div>
 
         <script src="data.js"></script>
@@ -93,8 +96,9 @@
                 // заменяем 
                 // template: '<a href="https://v3.vuejs.org/guide">Read more</a>',
                 // на
-                template: '<a :href="url">Read more</a>',
+                //template: '<a :href="url">Read more</a>',
 
+                template: '<a :href="url"><slot>Read more</slot></a><slot name="copyright"></slot>',
                 name: 'ReadMore',
                 props: ['url']
             });
