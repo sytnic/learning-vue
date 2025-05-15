@@ -31,4 +31,40 @@ https://github.com/vuejs/devtools-v6/releases/tag/v6.6.3
 
 Если компонент не отображается в панели отладки в инструменте Vue в Firefox, то нужно перезагрузить панель отладки F12.
 
-## 
+## 023-Installing Vue CLI
+
+Single-File Components
+
+https://vuejs.org/guide/scaling-up/sfc.html
+
+https://cli.vuejs.org/
+
+> Но сейчас используют create-vue   
+
+https://github.com/vuejs/create-vue  
+
+https://cli.vuejs.org/guide/  
+https://cli.vuejs.org/guide/installation.html  
+
+После установки Node:
+
+    npm install -g @vue/cli
+    vue --version
+
+https://github.com/vuejs/vue-cli
+
+Создание проекта:
+
+    vue create flashcard-app
+
+Запуск сервера
+
+    cd .\flashcard-app\
+    npm run serve
+
+Запуск в браузере    
+
+http://localhost:8080/
+
+##
+
